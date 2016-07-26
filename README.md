@@ -9,7 +9,7 @@ Unless noted below or in the files themselves, all of the scripts listed are lic
 
 This a simple ticker I made for use in i3. It's pretty janky but it works.
 
-It basically "ticks" forward or backware by a single character every time you call `step()` returning a number of characters until it reaches the end.
+It basically "ticks" forward or backwards by a single character every time you call `step()` returning a number of characters until it reaches the end.
 
 See [`musicticker.py`](#musictickerpy) for an example script for a proper music ticker I made.
 
