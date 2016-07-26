@@ -1,7 +1,7 @@
 # scripts
 Random scripts I've made. Most of which will end up being in either Python 3 or Bash.
 
-Unless noted below or in the files themselves, all of the scripts listed are licenced under the Apache 2.0 license, so you can do pretty much whatever you want with them so long as you give proper credit.
+Unless noted below or in the files themselves, all of the scripts listed are licenced under the MIT license, so you can do pretty much whatever you want with them so long as you give proper credit.
 
 -----
 
