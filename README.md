@@ -26,3 +26,7 @@ I haven't gotten around to improving this yet but eventually I'll get around to 
 This was a fluxbox menu generator I wrote a long time ago. It had it's own repo, but it was literally just one file so I'll put it here instead.
 
 It's pretty messy and doesn't do proper filtering, but it works.
+
+### [buildui.sh](buildui.sh)
+
+This shell script uses `pyuic5` to generate python classes from an entire directory of Qt5 Ui designer files. Just feed it an input and output directory and it'll take care of everything.
