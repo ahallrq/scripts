@@ -30,3 +30,7 @@ It's pretty messy and doesn't do proper filtering, but it works.
 ### [buildui.sh](buildui.sh)
 
 This shell script uses `pyuic5` to generate python classes from an entire directory of Qt5 Ui designer files. Just feed it an input and output directory and it'll take care of everything.
+
+### [shelllogin/*](shelllogin/)
+
+Every script in this file is used to allow the user to select predefined window managers or programs to run. I use this on a laptop to use certain virtual terminals for certain tasks. For example, logging into VT1 runs the script that prompts for the window manager to start via a case statement in .xinitrc.
