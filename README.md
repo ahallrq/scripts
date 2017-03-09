@@ -34,3 +34,7 @@ This shell script uses `pyuic5` to generate python classes from an entire direct
 ### [shelllogin/*](shelllogin/)
 
 Every script in this directory is used to allow the user to select predefined window managers or programs to run. I use this on a laptop to use certain virtual terminals for certain tasks. For example, logging into VT1 runs the script that prompts for the window manager to start via a case statement in .xinitrc.
+
+### [vultrbal](vultrbal)
+
+A script for i3blocks that displays your Vultr balance on your i3bar. Requires `jq` and FontAwesome is recommended for the icon.
