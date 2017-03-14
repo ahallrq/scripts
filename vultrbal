@@ -25,7 +25,70 @@
 
 # For more information, please refer to <http://unlicense.org>
 
+# v1: Initial revision
+# v2: Added colour and inversion flags, added usage prompt, modified balance to calculate total based on pending charges.
+# Todo: Fix tab/space mixing, clean up code, add flag to disable pending charge calculation
+
 API_KEY="INSERT_API_KEY_HERE"
+BAL_MODE=0
+COLOUR=0
+
+function print_usage {
+        echo "vultrbal usage:"
+        echo "-i | --invert-balance: Invert how the balance is shown. i.e 20 dollars credit will be shown as \"\$20\" rather than \"\$-20\"."
+	echo "-c | --colour: Enable colours. The balance displays in red, yellow or greed depending on amount."
+        echo "-h | --help: Print this usage text."
+}
+
+while [[ $# -gt 0 ]];
+do
+    key="$1"
+    case $key in
+        -i|--invert-balance)
+            BAL_MODE=1; break;;
+    	-c|--colour)
+	    COLOUR=1; break;;
+        -h|--help)
+            print_usage; exit ;;
+        *)
+            print_usage; exit ;;
+    esac
+done
+
+function balance {
+    echo "$"$total
+    echo "$"$total
+    if [[ "$COLOUR" -eq "1" ]];
+    then
+        if (( $(bc <<< "$total < -20") ));
+        then
+            echo "#00FF00"
+        elif (( $(bc <<< "$total > 0") ));
+        then
+            echo "#FF0000"
+        else
+            echo "#FFFF00"
+        fi
+    fi
+}
+
+function invbalance {
+    invtotal=$(bc <<< "(-1*($total))")
+    echo "$"$invtotal
+    echo "$"$invtotal
+    if [[ "$COLOUR" -eq "1" ]];
+    then
+	if (( $(bc <<< "$invtotal > 20") ));
+	then
+	    echo "#00FF00"
+        elif (( $(bc <<< "$invtotal < 0") ));
+        then
+            echo "#FF0000"
+        else
+            echo "#FFFF00"
+	fi
+    fi
+}
 
 if [[ $API_KEY == "INSERT_API_KEY_HERE" ]];
 then
@@ -44,24 +107,22 @@ STATUS=$(echo $RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 
 if [[ $STATUS == "403" ]];
 then
-    echo "You have set an invalid API key!" # short text
-    echo "You have set an invalid API key!" # long text
+    echo "You have set an invalid API key!"
+    echo "You have set an invalid API key!"
 elif [[ $STATUS == "503" ]];
 then
-    echo "Excessive requests. Try again later." # short text
-    echo "Excessive requests. Try again later." # long text
+    echo "Excessive requests. Try again later."
+    echo "Excessive requests. Try again later."
 elif [[ $STATUS == "200" ]];
 then
     bal=$(echo "$BODY" | jq ".balance" | sed -e 's/^"//' -e 's/"$//')
-    echo "$"$bal
-    echo "$"$bal
-    if (( $(bc <<< "$bal < -20") ));
+    pending=$(echo "$BODY" | jq ".pending_charges" | sed -e 's/^"//' -e 's/"$//')
+    total=$(bc <<< "$bal + $pending")
+    if [[ $BAL_MODE -eq "0" ]];
     then
-        echo "#00FF00" # colour - green
-    elif (( $(bc <<< "$bal > 0") ));
+        balance
+    elif [[ $BAL_MODE -eq "1" ]];
     then
-        echo "#FF0000" # colour - red
-    else
-        echo "#FFFF00" # colour - yellow
+        invbalance
     fi
 fi
