@@ -26,7 +26,7 @@
 # For more information, please refer to <http://unlicense.org>
 
 # v1: Initial revision
-# v2: Added colour and inversion flags, added usage prompt, modified balance to calculate total based on pending charges.
+# v2: Added colour and inversion flags, added usage prompt, modified balance to calculate total based on pending charges (thanks AWindowsKrill).
 # Todo: Fix tab/space mixing, clean up code, add flag to disable pending charge calculation
 
 API_KEY="INSERT_API_KEY_HERE"
